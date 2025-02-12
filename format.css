@@ -17,13 +17,11 @@ header {
     
 }
 body .main {
+  margin-top: 15%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-}
-#elso.szoveg {
-    margin-top: 15%;
 }
 .slider-thumb::before {
     position: absolute;
@@ -64,4 +62,24 @@ body {
   font-style: normal;
   font-variation-settings:
     "wdth" 100;
+}
+.gombDoboz {
+  display: flex;
+  margin-top: 5%;
+  justify-content: space-between;
+  width: 80%;
+}
+.gombDoboz .gomb {
+  width: 20%;
+  height: 100px;
+  background-color: #c4e652;
+  font-family: "Noto Sans", serif;
+  font-weight: 500;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
+.gombDoboz .gomb:hover {
+  background-color: #a8cc35;
 }
