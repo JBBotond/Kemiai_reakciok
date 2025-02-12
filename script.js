@@ -1,42 +1,44 @@
-dragElement(document.getElementById("mydiv"));
 
-function dragElement(elmnt) {
-  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-  if (document.getElementById(elmnt.id)) {
-    /* if present, the header is where you move the DIV from:*/
-    document.getElementById(elmnt.id).onmousedown = dragMouseDown;
-  } else {
-    /* otherwise, move the DIV from anywhere inside the DIV:*/
-    elmnt.onmousedown = dragMouseDown;
-  }
+document.addEventListener('DOMContentLoaded', (event) => {
+  const header= document.querySelector('header');
+  const headerRect = header.getBoundingClientRect();
+  const square = document.getElementById("square");
+  square.style.position = "absolute"; // Ensure the element has a position style
+  dragElement(square);
 
-  function dragMouseDown(e) {
-    e = e || window.event;
-    e.preventDefault();
-    // get the mouse cursor position at startup:
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    document.onmouseup = closeDragElement;
-    // call a function whenever the cursor moves:
-    document.onmousemove = elementDrag;
-  }
+  function dragElement(elmnt) {
+    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    if (document.getElementById(elmnt.id)) {
+      document.getElementById(elmnt.id).addEventListener('mousedown', dragMouseDown);
+    } else {
+      elmnt.addEventListener('mousedown', dragMouseDown);
+    }
 
-  function elementDrag(e) {
-    e = e || window.event;
-    e.preventDefault();
-    // calculate the new cursor position:
-    pos1 = pos3 - e.clientX;
-    pos2 = pos4 - e.clientY;
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    // set the element's new position:
-    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-  }
+    function dragMouseDown(e) {
+      e.preventDefault();
+      pos3 = e.clientX;
+      pos4 = e.clientY;
+      document.addEventListener('mouseup', closeDragElement);
+      document.addEventListener('mousemove', elementDrag);
+    }
 
-  function closeDragElement() {
-    /* stop moving when mouse button is released:*/
-    document.onmouseup = null;
-    document.onmousemove = null;
+    function elementDrag(e) {
+      e.preventDefault();
+
+
+      pos1 = pos3 - e.clientX;
+      pos2 = pos4 - e.clientY;
+      pos3 = e.clientX;
+      pos4 = e.clientY;
+      elmnt.style.top = Math.max((elmnt.offsetTop - pos2), headerRect.height) + "px";
+      elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+      console.log(`Element position: top=${elmnt.style.top}, left=${elmnt.style.left}`);
+    }
+
+    function closeDragElement() {
+      document.removeEventListener('mouseup', closeDragElement);
+      document.removeEventListener('mousemove', elementDrag);
+    }
+
   }
-}
+});
