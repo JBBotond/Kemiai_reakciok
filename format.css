@@ -83,3 +83,17 @@ body {
 .gombDoboz .gomb:hover {
   background-color: #a8cc35;
 }
+
+#square{
+  height:fit-content;
+  width:4%;
+  background-color: transparent;
+  border: 2px solid black;
+  cursor: move;
+  justify-content: center;
+
+}
+#square p{
+  font-size:large;
+  align-content: center;
+}
