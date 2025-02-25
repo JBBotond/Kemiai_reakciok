@@ -27,7 +27,7 @@ header h3 {
   margin: 0;
   text-align: center;
 }
-body .main {
+body #main {
   margin-top: 15%;
   display: flex;
   align-items: center;
@@ -79,6 +79,7 @@ body {
   margin-top: 5%;
   justify-content: space-between;
   width: 80%;
+  flex-direction: row;
 }
 .gombDoboz .gomb {
   width: 20%;
@@ -95,18 +96,17 @@ body {
   background-color: #a8cc35;
 }
 
-#square{
-  height:fit-content;
-  width:4%;
-  background-color: transparent;
-  border: 2px solid black;
-  cursor: move;
-  justify-content: center;
-
-}
-#square p{
+.square {
   font-size:large;
   align-content: center;
+  width: 50px;
+  height: 50px;
+  background-color: white;
+  margin: 0;
+  margin-bottom: 5px;
+  border-style: groove;
+  border-color: black;
+  cursor: grab;
 }
 
 .container {
@@ -137,4 +137,9 @@ body {
   background-color: white;
   margin: 0;
   margin-bottom: 5px;
+  border-style: groove;
+  border-color: black;
+}
+.buttonContainer p:hover {
+  background-color: grey;
 }

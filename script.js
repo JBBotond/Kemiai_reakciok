@@ -1,10 +1,57 @@
-
 document.addEventListener('DOMContentLoaded', (event) => {
-  const header= document.querySelector('header');
+  const header = document.querySelector('header');
   const headerRect = header.getBoundingClientRect();
-  const square = document.getElementById("square");
-  square.style.position = "absolute"; // Ensure the element has a position style
-  dragElement(square);
+  const squares = document.querySelectorAll(".square");
+  const addCarbon = document.getElementById("carbonButton");
+  const addHidrogen = document.getElementById("hidrogenButton");
+
+  squares.forEach(square => {
+    square.style.position = "absolute"; // Ensure the element has a position style
+    dragElement(square);
+    square.addEventListener('dblclick', toggleLines); // Add double-click event listener
+  });
+
+  addHidrogen.addEventListener('click', () => {
+    var objTo = document.getElementById("main");
+    const newSquare = document.createElement('p');
+    newSquare.textContent = "H";
+    newSquare.classList.add('square');
+    newSquare.style.position = "absolute";
+    newSquare.setAttribute("align","center");
+    const lastSquare = objTo.querySelector('.square:last-of-type');
+    if (lastSquare) {
+      const lastRect = lastSquare.getBoundingClientRect();
+      newSquare.style.top = (lastRect.top + 100) + "px";
+      newSquare.style.left = (lastRect.left + 100) + "px";
+        } else {
+      newSquare.style.top = (headerRect.height + 100) + "px";
+      newSquare.style.left = "100px";
+    }
+    objTo.appendChild(newSquare);
+    dragElement(newSquare);
+    newSquare.addEventListener('dblclick', toggleLines); // Add double-click event listener
+  });
+
+  addCarbon.addEventListener('click', () => {
+    var objTo = document.getElementById("main");
+    const newSquare = document.createElement('p');
+    newSquare.textContent = "C";
+    newSquare.classList.add('square');
+    newSquare.style.position = "absolute";
+    newSquare.setAttribute("align","center");
+    const lastSquare = objTo.querySelector('.square:last-of-type');
+    if (lastSquare) {
+      const lastRect = lastSquare.getBoundingClientRect();
+      newSquare.style.top = (lastRect.top + 100) + "px";
+      newSquare.style.left = (lastRect.left + 100) + "px";
+        } else {
+      newSquare.style.top = (headerRect.height + 100) + "px";
+      newSquare.style.left = "100px";
+    }
+    objTo.appendChild(newSquare);
+    dragElement(newSquare);
+    newSquare.addEventListener('dblclick', toggleLines); // Add double-click event listener
+  });
 
   function dragElement(elmnt) {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
@@ -24,8 +71,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     function elementDrag(e) {
       e.preventDefault();
-
-
       pos1 = pos3 - e.clientX;
       pos2 = pos4 - e.clientY;
       pos3 = e.clientX;
@@ -39,6 +84,56 @@ document.addEventListener('DOMContentLoaded', (event) => {
       document.removeEventListener('mouseup', closeDragElement);
       document.removeEventListener('mousemove', elementDrag);
     }
-
   }
 });
+
+function toggleLines(event) {
+  const square = event.target;
+  const lines = square.querySelectorAll('.line');
+  if (lines.length > 0) {
+    lines.forEach(line => line.remove());
+  } else {
+    createLines(square);
+  }
+}
+
+function createLines(square) {
+  const directions = ['top', 'right', 'bottom', 'left'];
+  directions.forEach(direction => {
+    const line = document.createElement('div');
+    line.classList.add('line', direction);
+    line.style.position = 'absolute';
+    line.style.backgroundColor = 'black';
+    switch (direction) {
+      case 'top':
+        line.style.width = '2px';
+        line.style.height = '50px';
+        line.style.top = '-50px';
+        line.style.left = '50%';
+        line.style.transform = 'translateX(-50%)';
+        break;
+      case 'right':
+        line.style.width = '50px';
+        line.style.height = '2px';
+        line.style.top = '50%';
+        line.style.left = '100%';
+        line.style.transform = 'translateY(-50%)';
+        break;
+      case 'bottom':
+        line.style.width = '2px';
+        line.style.height = '50px';
+        line.style.top = '100%';
+        line.style.left = '50%';
+        line.style.transform = 'translateX(-50%)';
+        break;
+      case 'left':
+        line.style.width = '50px';
+        line.style.height = '2px';
+        line.style.top = '50%';
+        line.style.left = '-50px';
+        line.style.transform = 'translateY(-50%)';
+        break;
+    }
+    square.appendChild(line);
+  });
+}
