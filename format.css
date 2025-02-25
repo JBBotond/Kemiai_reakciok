@@ -8,13 +8,24 @@ body {
 header {
     display: flex;
     align-content: center;
-    flex-wrap: wrap;
     justify-content: center;
     position: fixed;
-    height: 13%;
+    height: 15%;
     width: 100%;
     background-color: greenyellow;
-    
+    flex-direction: column;
+    flex-wrap:wrap;
+}
+header h1 {
+  margin: 0;
+  align-self: center;
+}
+header h3 {
+  display: flex;
+  width: 80%;
+  flex-wrap: wrap;
+  margin: 0;
+  text-align: center;
 }
 body .main {
   margin-top: 15%;
@@ -96,4 +107,34 @@ body {
 #square p{
   font-size:large;
   align-content: center;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+}
+.container .savContainer {
+  background-color: white;
+  height: 70vh;
+  width: 80vw; 
+}
+.container p {
+  margin-top: 5%;
+  display: flex;
+  width: 50%;
+  flex-wrap: wrap;
+}
+.buttonContainer {
+  align-self: self-end;
+}
+.buttonContainer p {
+  width: 50px;
+  height: 50px;
+  background-color: white;
+  margin: 0;
+  margin-bottom: 5px;
 }
